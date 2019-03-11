@@ -1,0 +1,42 @@
+    {% extends "base.html" %}
+
+ {% block title %}Genomes API{% endblock %}
+    {% block content %}
+    {% if messages %}
+      {% for message in messages %}
+
+      <div class="alert alert-info alert-dismissable" role="alert">
+        <button class="close" data-dismiss="alert">
+          <small><sup>x</sup></small>
+        </button>
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif%}
+    <h3>To-do</h3>
+
+
+    {% if list %}
+        <table class="table">
+            {% for thing in list %}
+              {% if thing.completed %}
+                <tr class="table-secondary">
+                  <td class="striker">
+                    <a href="{% url 'edit' thing.id %}">{{ thing.item}}</a>
+                   </td>
+                  <td><center><a class="btn btn-outline-primary btn-sm" href="{% url 'uncross' thing.id %}" role="button">Uncross</a></center></td>
+                  <td><center><a class="btn btn-outline-danger btn-sm" href="{% url 'delete' thing.id %}" role="button">Delete</a></center></td>
+                </tr>
+              {% else %}
+                <tr class="table-success">
+                  <td>
+                    <a href="{% url 'edit' thing.id %}">{{ thing.item}}</a>
+                   </td>
+                  <td><center><a class="btn btn-outline-primary btn-sm" href="{% url 'cross_off' thing.id %}" role="button">Cross off</a></center></td>
+                  <td><center><a class="btn btn-outline-danger btn-sm" href="{% url 'delete' thing.id %}" role="button">Delete</a></center></td>
+              {% endif %}
+            {% endfor%}
+        </table>
+    {% endif %}
+
+    {% endblock%}

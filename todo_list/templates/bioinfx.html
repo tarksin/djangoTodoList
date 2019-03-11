@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}bioinfx{% endblock %}
+
+{% block content %}
+
+    Whole genome sequences:
+    <ul>
+      <li>Gorilla</li>
+      <li>Zebra fish</li>
+      <li>Homo sapiens</li>
+      <li>Anna's songbird</li>
+      <li>Saccharomyces cerevisiae</li>
+    </ul>
+
+{% if list %}
+  <h3>To-do</h3>
+    <table class="table">
+      {% block list%}
+        {% for thing in list %}
+          {% if thing.completed %}
+          <tr class="table-secondary">
+            <td class="striker">  {{ thing.item }} </td>
+
+          {% else %}
+          <tr class="table-success">
+            <td>  {{ thing.item }} </td>
+        {% endif %}
+              <td><center> {{ thing.completed }} </center></td>
+              <td> <center> Delete </center></td>
+          </tr>
+        {% endfor%}
+      {% endblock%}
+    </table>
+{% endif %}
+
+{% if subgroups|length <= 6 %}
+{% block subgroups %}
+{% for sub in subgroups%}
+<h4>{{ sub.name }}</h4>
+ <p>{{ sub.organisms }}</p>
+{% endfor%}
+{% endblock %}
+{% endif %}
+{% endblock %}
